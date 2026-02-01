@@ -4,169 +4,188 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Valentine?</title>
+
   <style>
-    :root { --bg:#0b1020; --card:#121a33; --text:#e8ecff; --muted:#aab3da; }
+    /* ===== Pastel pink theme ===== */
+    :root {
+      --bg1: #ffe6ee;
+      --bg2: #ffd1dc;
+      --card: #ffffff;
+      --text: #2b2b2b;
+    }
+
     * { box-sizing: border-box; }
-    body{
-      margin:0;
-      min-height:100vh;
-      display:grid;
-      place-items:center;
-      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-      background: radial-gradient(900px 500px at 50% 20%, #1a2550, var(--bg));
-      color:var(--text);
-      overflow:hidden;
-    }
-    .card{
-      width:min(520px,92vw);
-      background:rgba(18,26,51,.92);
-      border:1px solid rgba(255,255,255,.08);
-      border-radius:18px;
-      padding:22px;
-      text-align:center;
-      box-shadow:0 20px 60px rgba(0,0,0,.35);
-      backdrop-filter: blur(8px);
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: linear-gradient(135deg, var(--bg1), var(--bg2));
+      color: var(--text);
+      padding: 18px;
     }
 
-    /* No crop: show the full image */
-    .photo{
-      width:100%;
-      max-height:320px;
-      height:auto;
-      object-fit:contain;              /* key change */
-      border-radius:14px;
-      margin-bottom:14px;
-      border:1px solid rgba(255,255,255,.08);
-      background: rgba(255,255,255,.04); /* so it still looks clean if image has empty space */
-      display:block;
+    .card {
+      width: min(560px, 94vw);
+      background: var(--card);
+      border-radius: 22px;
+      padding: 24px;
+      text-align: center;
+      box-shadow: 0 18px 40px rgba(0,0,0,.12);
     }
 
-    h1{ margin:0 0 14px; font-size:26px; }
-    .btns{
-      position:relative;
-      height:120px;
-      display:grid;
-      place-items:center;
+    /* ===== Photo ===== */
+    .photo {
+      width: 100%;
+      max-height: 340px;
+      height: auto;
+      object-fit: contain;     /* no crop */
+      display: block;
+      margin-bottom: 16px;
+      border-radius: 16px;
+      background: #fff0f5;
     }
-    button{
-      border:0;
-      padding:12px 18px;
-      border-radius:999px;
-      font-weight:800;
-      cursor:pointer;
-      font-size:16px;
+
+    h1 {
+      margin: 0 0 18px;
+      font-size: 28px;
+      line-height: 1.2;
+      font-weight: 700;
+    }
+
+    /* ===== Button arena ===== */
+    .btn-area {
+      position: relative;
+      height: 180px;
+      margin-top: 8px;
+    }
+
+    button {
+      border: none;
+      padding: 12px 20px;
+      border-radius: 999px;
+      font-size: 16px;
+      font-weight: 800;
+      cursor: pointer;
       transition: transform .12s ease;
     }
-    button:active{ transform:scale(.98); }
-    #yes{
-      background:#22c55e;
-      color:#07120a;
-      box-shadow:0 10px 20px rgba(34,197,94,.25);
-    }
-    #no{
-      position:absolute;
-      left:58%;
-      top:62%;
-      transform:translate(-50%,-50%);
-      background:#ef4444;
-      color:#1a0505;
-      box-shadow:0 10px 20px rgba(239,68,68,.2);
-      user-select:none;
-      touch-action:none;
-    }
-    .yay{
-      display:none;
-      margin-top:14px;
-      padding:14px 12px;
-      border-radius:14px;
-      background: rgba(34,197,94,.12);
-      border:1px solid rgba(34,197,94,.25);
-      color:#c8ffd9;
-      line-height:1.35;
-    }
-    .emoji{ font-size:42px; margin-bottom:8px; }
 
-    @media (max-width:420px){
-      .btns{ height:150px; }
-      .photo{ max-height:280px; }
-      button{ padding:14px 20px; font-size:17px; }
+    button:active {
+      transform: scale(.98);
+    }
+
+    #yes {
+      background: #22c55e;
+      color: #07120a;
+      box-shadow: 0 10px 20px rgba(34,197,94,.25);
+      position: absolute;
+      left: 50%;
+      top: 45%;
+      transform: translate(-50%, -50%);
+    }
+
+    #no {
+      background: #ef4444;
+      color: #1a0505;
+      box-shadow: 0 10px 20px rgba(239,68,68,.25);
+      position: absolute;
+      left: 50%;
+      top: 80%;
+      transform: translate(-50%, -50%);
+      user-select: none;
+      touch-action: none;
+    }
+
+    /* ===== Yay message ===== */
+    .yay {
+      display: none;
+      margin-top: 18px;
+      padding: 16px 14px;
+      border-radius: 16px;
+      background: #f0fff4;
+      border: 1px solid #bbf7d0;
+      color: #14532d;
+      line-height: 1.35;
+    }
+
+    .emoji {
+      font-size: 42px;
+      margin-bottom: 8px;
+    }
+
+    @media (max-width: 420px) {
+      h1 { font-size: 24px; }
+      .btn-area { height: 210px; }
+      button { padding: 14px 22px; font-size: 17px; }
+      .photo { max-height: 300px; }
     }
   </style>
 </head>
-<body>
-  <div class="card" id="card">
 
-    <img class="photo"
-      src="https://drive.google.com/uc?export=view&id=1129RmNxCrJx0Xlej3HjNFe11c-a1ebPA"
-      alt="Photo"
-    />
+<body>
+  <div class="card">
+    <!-- Upload your image into the repo as photo.jpg -->
+    <img class="photo" src="photo.jpg" alt="Photo" />
 
     <h1>Baby, will you be my Valentine? 💌</h1>
 
-    <div class="btns">
+    <div class="btn-area" id="arena">
       <button id="yes">Yes</button>
-      <button id="no" aria-label="No">No</button>
+      <button id="no">No</button>
     </div>
 
     <div class="yay" id="yay">
-      <div class="emoji">🥳💚</div>
+      <div class="emoji">🥳💗</div>
       <div>
         <strong>Yayyyy!</strong><br/>
-        See you on <span id="day">Saturday</span>, my love!<br/>
+        See you on Saturday, my love!<br/>
         Can't wait :)
       </div>
     </div>
-
   </div>
 
   <script>
+    const arena = document.getElementById("arena");
     const noBtn = document.getElementById("no");
     const yesBtn = document.getElementById("yes");
-    const card  = document.getElementById("card");
-    const yay   = document.getElementById("yay");
+    const yay = document.getElementById("yay");
 
-    document.getElementById("day").textContent = "Saturday";
+    function moveNo() {
+      const arenaRect = arena.getBoundingClientRect();
+      const btnRect = noBtn.getBoundingClientRect();
+      const padding = 10;
 
-    function moveNoButton(){
-      const cardRect = card.getBoundingClientRect();
-      const btnRect  = noBtn.getBoundingClientRect();
-
-      const padding = 14;
       const minX = padding;
-      const maxX = cardRect.width - btnRect.width - padding;
+      const maxX = arenaRect.width - btnRect.width - padding;
+      const minY = 14;
+      const maxY = arenaRect.height - btnRect.height - padding;
 
-      // Keep "No" away from the photo/title area
-      const minY = 360;
-      const maxY = cardRect.height - btnRect.height - padding;
-      const safeMinY = Math.min(minY, maxY - 10);
-
-      const x = Math.floor(Math.random() * (maxX - minX + 1)) + minX;
-      const y = Math.floor(Math.random() * (maxY - safeMinY + 1)) + safeMinY;
+      const x = Math.random() * (maxX - minX) + minX;
+      const y = Math.random() * (maxY - minY) + minY;
 
       noBtn.style.left = x + "px";
       noBtn.style.top  = y + "px";
       noBtn.style.transform = "none";
     }
 
-    // Desktop
-    noBtn.addEventListener("mouseenter", moveNoButton);
-    noBtn.addEventListener("mousemove", moveNoButton);
-
-    // Mobile
+    noBtn.addEventListener("mouseenter", moveNo);
+    noBtn.addEventListener("mousemove", moveNo);
     noBtn.addEventListener("touchstart", (e) => {
       e.preventDefault();
-      moveNoButton();
+      moveNo();
     }, { passive:false });
 
     yesBtn.addEventListener("click", () => {
       yay.style.display = "block";
       noBtn.style.display = "none";
-      yesBtn.textContent = "Locked in ✅";
+      yesBtn.textContent = "Locked in 💘";
       yesBtn.disabled = true;
 
-      for (let i = 0; i < 16; i++){
+      for (let i = 0; i < 16; i++) {
         const s = document.createElement("div");
-        s.textContent = ["💚","💛","💖","✨","🥳"][Math.floor(Math.random()*5)];
+        s.textContent = ["💗","💖","✨","🥰"][Math.floor(Math.random()*4)];
         s.style.position = "fixed";
         s.style.left = Math.random()*100 + "vw";
         s.style.top = "-10vh";
@@ -181,8 +200,8 @@
       }
     });
 
-    window.addEventListener("load", () => setTimeout(moveNoButton, 150));
-    window.addEventListener("resize", () => setTimeout(moveNoButton, 120));
+    window.addEventListener("load", () => setTimeout(moveNo, 120));
+    window.addEventListener("resize", () => setTimeout(moveNo, 120));
   </script>
 </body>
 </html>
